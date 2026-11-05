@@ -3,40 +3,73 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f0f3f7">
-  <title>Free Public WiFi</title>
+  <meta name="theme-color" content="#91abc5">
+  <title>WLAN-Zugang – High Speed Wi-Fi</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <main class="card">
-    <div class="topline">
-      <span class="brand">Free Public WiFi</span>
-      <span class="status"><span class="dot"></span> Verbunden</span>
+  <header class="site-header">
+    <div class="top-strip">
+      <div class="header-inner">
+        <span class="top-label">WLAN-PORTAL</span>
+        <span class="top-subtitle">NETZWERKZUGANG</span>
+      </div>
     </div>
 
-    <section id="welcome" class="panel">
-      <div class="wifi-icon" aria-hidden="true">⌁</div>
-      <h1>Willkommen!</h1>
-      <p class="subheading">Ihr WLAN-Zugang ist fast bereit.</p>
+    <div class="brand-row">
+      <div class="brand-mark" aria-hidden="true">HS</div>
+      <div class="brand-copy">
+        <div class="brand-title">High Speed Wi-Fi</div>
+        <div class="brand-subtitle">WLAN-Zugang</div>
+      </div>
+    </div>
 
-      <button id="goButton" class="primary" type="button">
-        Jetzt online gehen
-      </button>
+    <div class="section-strip" aria-hidden="true"></div>
+  </header>
 
-      <p class="fineprint">Bitte bestätigen Sie Ihren Zugang.</p>
+  <main class="page-content">
+    <section class="card" aria-label="WLAN-Zugang">
+      <div class="card-heading">
+        <span class="heading-symbol" aria-hidden="true">▣</span>
+        WLAN-Zugang
+      </div>
+
+      <section id="welcome" class="panel">
+        <h1>Willkommen</h1>
+        <p class="subheading">Die Verbindung zum WLAN wurde hergestellt.</p>
+        <p class="description">
+          Bitte bestätigen Sie, dass Sie fortfahren möchten.
+        </p>
+
+        <div class="action-row">
+          <button id="goButton" class="primary" type="button">
+            <span class="button-symbol" aria-hidden="true">➜</span>
+            Jetzt online gehen
+          </button>
+        </div>
+
+        <p class="fineprint">WLAN-Zugang · Keine Registrierung erforderlich</p>
+      </section>
+
+      <section id="videoPanel" class="video-panel" hidden>
+        <h2>Vielen Dank</h2>
+        <video
+          id="surpriseVideo"
+          playsinline
+          webkit-playsinline
+          loop
+          preload="auto">
+          Ihr Browser unterstützt dieses Video nicht.
+        </video>
+        <p class="fineprint">Falls die Wiedergabe nicht startet, tippen Sie auf Play.</p>
+      </section>
     </section>
 
-    <section id="videoPanel" class="video-panel" hidden>
-      <video
-        id="surpriseVideo"
-        playsinline
-        webkit-playsinline
-        loop
-        preload="auto">
-      </video>
-      <p class="fineprint">Falls das Video nicht startet, tippen Sie auf Play.</p>
-    </section>
+    <footer class="page-footer">
+      WLAN-Zugangspunkt · Lokales Netzwerkportal
+    </footer>
   </main>
+
   <script src="/script.js"></script>
 </body>
 </html>

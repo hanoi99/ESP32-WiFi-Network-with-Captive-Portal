@@ -13,6 +13,74 @@ IPAddress netMsk(255, 255, 255, 0);
 DNSServer dnsServer;
 WebServer server(80);
 
+// ==========================================
+// Logging / Statistiken
+// ==========================================
+
+uint32_t totalWifiConnections = 0;
+uint32_t totalClicks = 0;
+uint32_t totalVideoRequests = 0;
+
+// ==========================================
+// WiFi Event Logging
+// ==========================================
+
+void onWiFiEvent(arduino_event_id_t event) {
+
+    switch (event) {
+
+        case ARDUINO_EVENT_WIFI_AP_STACONNECTED:
+
+            totalWifiConnections++;
+
+            Serial.println();
+            Serial.println("================================");
+            Serial.println("[WLAN] Neues Gerät verbunden!");
+            Serial.printf(
+                "[WLAN] Verbindungen insgesamt: %lu\n",
+                (unsigned long)totalWifiConnections
+            );
+            Serial.println("================================");
+
+            break;
+
+
+        case ARDUINO_EVENT_WIFI_AP_STADISCONNECTED:
+
+            Serial.println("[WLAN] Ein Gerät hat die Verbindung getrennt.");
+
+            break;
+
+
+        default:
+            break;
+    }
+}
+
+// ==========================================
+// Button Logging
+// ==========================================
+
+void handleButtonHit() {
+
+    totalClicks++;
+
+    Serial.println();
+    Serial.println("################################");
+    Serial.println("[BUTTON] Jemand hat geklickt!");
+    Serial.printf(
+        "[BUTTON] Klicks insgesamt: %lu\n",
+        (unsigned long)totalClicks
+    );
+    Serial.println("################################");
+
+    server.send(
+        200,
+        "application/json",
+        "{\"status\":\"success\"}"
+    );
+}
+
 void sendPortalPage() {
   File file = LittleFS.open("/index.html", "r");
   if (!file) {
@@ -50,8 +118,17 @@ void setupRoutes() {
   });
 
 // Lokales Video aus LittleFS bereitstellen
-server.on("/video.mp4", HTTP_GET, []() {
-    Serial.println("[VIDEO] Video angefordert");
+  server.on("/video.mp4", HTTP_GET, []() {
+
+    totalVideoRequests++;
+
+    Serial.println();
+    Serial.println("[VIDEO] Video wurde angefordert!");
+    Serial.printf(
+        "[VIDEO] Anfragen insgesamt: %lu\n",
+        (unsigned long)totalVideoRequests
+    );
+
     handleAsset("/video.mp4", "video/mp4");
 });
 
@@ -63,7 +140,7 @@ server.on("/video.mp4", HTTP_GET, []() {
   server.on("/library/test/success.html", HTTP_GET, redirectToPortal);
   server.on("/connecttest.txt", HTTP_GET, redirectToPortal);           // Windows
   server.on("/ncsi.txt", HTTP_GET, redirectToPortal);
-
+  server.on("/api/button-hit", HTTP_POST, handleButtonHit);
   server.onNotFound(redirectToPortal);
 }
 
@@ -76,6 +153,8 @@ void setup() {
   }
 
   WiFi.mode(WIFI_AP);
+  // WiFi-Events registrieren
+  WiFi.onEvent(onWiFiEvent);
   WiFi.softAPConfig(apIP, apIP, netMsk);
 
   // Offener Access Point – nur für ein eigenes Testgerät bzw. mit Zustimmung nutzen.
@@ -97,6 +176,28 @@ void setup() {
 }
 
 void loop() {
-  dnsServer.processNextRequest();
-  server.handleClient();
+
+    dnsServer.processNextRequest();
+    server.handleClient();
+
+    // Aktuelle WLAN-Verbindungen kontrollieren
+    static unsigned long lastCheck = 0;
+    static int lastClientCount = -1;
+
+    if (millis() - lastCheck >= 500) {
+
+        lastCheck = millis();
+
+        int clients = WiFi.softAPgetStationNum();
+
+        if (clients != lastClientCount) {
+
+            lastClientCount = clients;
+
+            Serial.printf(
+                "[STATUS] Aktuell verbunden: %d Gerät(e)\n",
+                clients
+            );
+        }
+    }
 }

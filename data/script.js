@@ -10,6 +10,13 @@ const video = document.getElementById("surpriseVideo");
 
 goButton.addEventListener("click", async () => {
 
+    // Klick an den ESP32 melden
+    fetch("/api/button-hit", {
+    method: "POST",
+    cache: "no-store"
+    }).catch(error => {
+    console.warn("Logging fehlgeschlagen:", error);
+    });
     // WLAN-Oberfläche ausblenden
     document.body.classList.add("playing");
 

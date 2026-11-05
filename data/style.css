@@ -1,143 +1,362 @@
+/*
+ * High Speed Wi-Fi – klassisches Portal-Design
+ * Absichtlich ohne externe Fonts, Bilder oder Bibliotheken.
+ */
+
 :root {
   color-scheme: light;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #eef2f6;
-  color: #17212b;
+  --portal-blue: #91abc5;
+  --portal-blue-dark: #7896b4;
+  --portal-border: #bdc9d5;
+  --text: #303942;
+  --muted: #66727e;
+  --page-bg: #e8edf2;
+  --panel-bg: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
 }
-* { box-sizing: border-box; }
+
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
+  min-height: 100%;
   margin: 0;
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 22px;
 }
-.card {
-  width: min(100%, 460px);
-  background: #f7f9fb;
-  border: 1px solid #dce3ea;
-  border-radius: 22px;
-  padding: 22px;
-  box-shadow: 0 12px 36px rgba(25, 45, 65, .10);
+
+body {
+  background: var(--page-bg);
+  color: var(--text);
+  font-size: 14px;
 }
-.topline {
+
+/* Kopfbereich im klassischen Behörden-/Schulportal-Stil */
+.top-strip {
+  min-height: 42px;
+  background: var(--portal-blue);
+  color: #fff;
+}
+
+.header-inner {
+  width: min(100% - 40px, 1180px);
+  min-height: 42px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
-  margin-bottom: 22px;
 }
-.brand { font-size: 18px; font-weight: 700; }
-.status {
+
+.top-label {
+  font-size: 21px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.top-subtitle {
+  padding-left: 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.55);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+}
+
+.brand-row {
+  min-height: 86px;
+  padding: 12px max(20px, calc((100% - 1180px) / 2));
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #fff;
+}
+
+.brand-mark {
+  width: 68px;
+  height: 58px;
+  flex: 0 0 68px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #52697f;
+  color: #52697f;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, #fff 0%, #edf2f6 100%);
+}
+
+.brand-title {
+  color: #245b91;
+  font-size: clamp(23px, 3.2vw, 34px);
+  line-height: 1.15;
+  font-weight: 400;
+}
+
+.brand-subtitle {
+  margin-top: 4px;
+  color: #626d77;
+  font-size: 13px;
+}
+
+.section-strip {
+  height: 44px;
+  background: var(--portal-blue);
+  border-bottom: 5px solid #d5e0e9;
+}
+
+/* Inhalt */
+.page-content {
+  width: min(100% - 32px, 720px);
+  margin: 21px auto 32px;
+}
+
+.card {
+  overflow: hidden;
+  background: var(--panel-bg);
+  border: 1px solid #c5d0da;
+  border-radius: 3px;
+  box-shadow: 2px 3px 5px rgba(26, 39, 52, 0.22);
+}
+
+.card-heading {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 14px;
+  color: #fff;
+  background: var(--portal-blue);
+  border-bottom: 1px solid var(--portal-blue-dark);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.heading-symbol {
+  font-size: 17px;
+  line-height: 1;
+}
+
+.panel {
+  padding: 34px 38px 27px;
+  text-align: center;
+  background: #fff;
+}
+
+h1 {
+  margin: 0 0 9px;
+  color: #303c48;
+  font-size: 25px;
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.subheading {
+  margin: 0 0 10px;
+  color: #465361;
+  font-size: 15px;
+}
+
+.description {
+  margin: 0 0 25px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.action-row {
+  display: flex;
+  justify-content: center;
+}
+
+.primary {
+  min-height: 42px;
+  padding: 9px 17px;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  color: #247447;
-  font-size: 13px;
-  font-weight: 650;
-}
-.dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #2eaa63;
-}
-.panel, .video-panel {
-  background: #fff;
-  border: 1px solid #e3e8ed;
-  border-radius: 17px;
-  padding: 26px 20px;
-  text-align: center;
-}
-.wifi-icon { font-size: 38px; color: #66788a; line-height: 1; }
-h1 { margin: 15px 0 7px; font-size: 27px; }
-.subheading { color: #667482; margin: 0 0 25px; }
-.primary {
-  width: 100%;
-  border: 0;
-  border-radius: 14px;
-  background: #1769aa;
-  color: white;
-  padding: 17px 14px;
-  font-size: 18px;
-  font-weight: 700;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid #66798b;
+  border-radius: 3px;
+  background: linear-gradient(#fff, #eef1f4);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  color: #303942;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
 }
-.primary:active { transform: scale(.99); }
-.fineprint { color: #7b8792; font-size: 12px; margin: 17px 0 0; }
-.video-panel h2 { margin-top: 0; }
-video { width: 100%; max-height: 55vh; border-radius: 12px; background: #111; }
-[hidden] { display: none !important; }
 
-/* Video-Modus */
+.primary:hover {
+  background: linear-gradient(#fff, #e3eaf0);
+  border-color: #4e657b;
+}
+
+.primary:active {
+  background: #e4eaf0;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.primary:focus-visible {
+  outline: 3px solid rgba(48, 105, 157, 0.28);
+  outline-offset: 2px;
+}
+
+.button-symbol {
+  color: #526d86;
+  font-size: 18px;
+}
+
+.fineprint {
+  margin: 21px 0 0;
+  color: #7b858e;
+  font-size: 11px;
+}
+
+.page-footer {
+  padding: 11px 4px;
+  color: #78838d;
+  text-align: center;
+  font-size: 11px;
+}
+
+/* Vorhandene Video-Ansicht: nach dem Button bleibt nur das Video sichtbar. */
+.video-panel {
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+}
+
+.video-panel h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.video-panel video {
+  display: block;
+  width: 100%;
+  max-height: 60vh;
+  margin: 0 auto;
+  background: #000;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Vollflächige Videodarstellung nach dem Klick */
 body.playing {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    background: #000;
-    overflow: hidden;
-    display: block;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: block;
+  overflow: hidden;
+  background: #000;
 }
 
-/* Karte bleibt bestehen, wird aber randlos */
-body.playing .card {
-    width: 100%;
-    max-width: none;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-    background: #000;
-}
-
-/* Nur die WLAN-Oberfläche ausblenden */
-body.playing .topline,
+body.playing .site-header,
+body.playing .page-footer,
+body.playing .card-heading,
 body.playing #welcome {
-    display: none;
+  display: none;
 }
 
-/* Videobereich über den gesamten Bildschirm */
+body.playing .page-content {
+  width: 100%;
+  margin: 0;
+}
+
+body.playing .card {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: #000;
+}
+
 body.playing .video-panel {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    border-radius: 0;
-    background: #000;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 0;
+  background: #000;
 }
 
-/* Überschrift und Zusatztext entfernen */
 body.playing .video-panel h2,
 body.playing .video-panel .fineprint {
-    display: none;
+  display: none;
 }
 
-/* Video */
-body.playing video {
-    display: block;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    background: #000;
-    border: 0;
-    border-radius: 0;
+body.playing .video-panel video {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  object-fit: contain;
+  background: #000;
+  border: 0;
+  border-radius: 0;
 }
 
-/* Fallback für ältere Safari-Versionen */
+/* Fallback, falls der Browser echten Fullscreen aktiviert */
 video:fullscreen {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: #000;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+/* Schmale Smartphone-Displays */
+@media (max-width: 520px) {
+  .header-inner {
+    width: calc(100% - 28px);
+  }
+
+  .brand-row {
+    min-height: 76px;
+    padding: 10px 14px;
+    gap: 11px;
+  }
+
+  .brand-mark {
+    width: 54px;
+    height: 50px;
+    flex-basis: 54px;
+    font-size: 20px;
+  }
+
+  .brand-title {
+    font-size: 24px;
+  }
+
+  .section-strip {
+    height: 34px;
+  }
+
+  .page-content {
+    width: calc(100% - 22px);
+    margin-top: 15px;
+  }
+
+  .panel {
+    padding: 29px 18px 23px;
+  }
+
+  h1 {
+    font-size: 23px;
+  }
 }
