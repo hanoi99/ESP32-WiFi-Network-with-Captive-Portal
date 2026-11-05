@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f0f3f7">
+  <title>Free Public WiFi</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="card">
+    <div class="topline">
+      <span class="brand">Free Public WiFi</span>
+      <span class="status"><span class="dot"></span> Verbunden</span>
+    </div>
+
+    <section id="welcome" class="panel">
+      <div class="wifi-icon" aria-hidden="true">⌁</div>
+      <h1>Willkommen!</h1>
+      <p class="subheading">Ihr WLAN-Zugang ist fast bereit.</p>
+
+      <button id="goButton" class="primary" type="button">
+        Jetzt online gehen
+      </button>
+
+      <p class="fineprint">Bitte bestätigen Sie Ihren Zugang.</p>
+    </section>
+
+    <section id="videoPanel" class="video-panel" hidden>
+      <video
+        id="surpriseVideo"
+        playsinline
+        webkit-playsinline
+        loop
+        preload="auto">
+      </video>
+      <p class="fineprint">Falls das Video nicht startet, tippen Sie auf Play.</p>
+    </section>
+  </main>
+  <script src="/script.js"></script>
+</body>
+</html>

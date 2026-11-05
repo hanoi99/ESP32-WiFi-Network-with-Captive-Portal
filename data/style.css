@@ -1,0 +1,143 @@
+:root {
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #eef2f6;
+  color: #17212b;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+}
+.card {
+  width: min(100%, 460px);
+  background: #f7f9fb;
+  border: 1px solid #dce3ea;
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow: 0 12px 36px rgba(25, 45, 65, .10);
+}
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.brand { font-size: 18px; font-weight: 700; }
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #247447;
+  font-size: 13px;
+  font-weight: 650;
+}
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #2eaa63;
+}
+.panel, .video-panel {
+  background: #fff;
+  border: 1px solid #e3e8ed;
+  border-radius: 17px;
+  padding: 26px 20px;
+  text-align: center;
+}
+.wifi-icon { font-size: 38px; color: #66788a; line-height: 1; }
+h1 { margin: 15px 0 7px; font-size: 27px; }
+.subheading { color: #667482; margin: 0 0 25px; }
+.primary {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  background: #1769aa;
+  color: white;
+  padding: 17px 14px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.primary:active { transform: scale(.99); }
+.fineprint { color: #7b8792; font-size: 12px; margin: 17px 0 0; }
+.video-panel h2 { margin-top: 0; }
+video { width: 100%; max-height: 55vh; border-radius: 12px; background: #111; }
+[hidden] { display: none !important; }
+
+/* Video-Modus */
+body.playing {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: #000;
+    overflow: hidden;
+    display: block;
+}
+
+/* Karte bleibt bestehen, wird aber randlos */
+body.playing .card {
+    width: 100%;
+    max-width: none;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: #000;
+}
+
+/* Nur die WLAN-Oberfläche ausblenden */
+body.playing .topline,
+body.playing #welcome {
+    display: none;
+}
+
+/* Videobereich über den gesamten Bildschirm */
+body.playing .video-panel {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Überschrift und Zusatztext entfernen */
+body.playing .video-panel h2,
+body.playing .video-panel .fineprint {
+    display: none;
+}
+
+/* Video */
+body.playing video {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    background: #000;
+    border: 0;
+    border-radius: 0;
+}
+
+/* Fallback für ältere Safari-Versionen */
+video:fullscreen {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+}
